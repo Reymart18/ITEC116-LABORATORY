@@ -1,0 +1,141 @@
+/* Container styles */
+.container {
+  max-width: 900px;
+  margin: 50px auto;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+/* Input area */
+.input-container {
+  margin-bottom: 40px;
+}
+
+.input-container input {
+  padding: 12px;
+  width: 280px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+  box-shadow: inset 2px 2px 5px rgba(0,0,0,0.1);
+  font-size: 1rem;
+}
+
+.input-container button {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  background-color: #4caf50;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  transition: all 0.2s;
+}
+
+.input-container button:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+}
+
+/* Tasks container */
+.tasks-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+
+/* Task note */
+.task-note {
+  width: 200px;
+  min-height: 140px;
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 4px 6px 15px rgba(0,0,0,0.3);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: grab;
+  font-weight: 500;
+  perspective: 1000px;
+}
+
+/* Hover effect for 3D pop */
+.task-note:hover {
+  transform: scale(1.05) rotateZ(0deg) rotateX(3deg);
+  box-shadow: 6px 10px 20px rgba(0,0,0,0.35);
+}
+
+/* Colors */
+.task-note.yellow { background-color: #fff79a; }
+.task-note.pink { background-color: #ffb6c1; }
+.task-note.green { background-color: #a8f0a0; }
+.task-note.blue { background-color: #add8e6; }
+.task-note.purple { background-color: #d8b7ff; }
+.task-note.orange { background-color: #ffd699; }
+
+/* Edit input */
+.edit-input {
+  padding: 6px;
+  width: 100%;
+  margin-bottom: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+}
+
+/* Save button */
+.save-btn {
+  padding: 6px;
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  background-color: #2196f3;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+  transition: all 0.2s;
+}
+
+.save-btn:hover {
+  background-color: #0b7dda;
+  transform: translateY(-1px);
+}
+
+/* Task buttons */
+.task-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.task-buttons button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #333;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.task-buttons button:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+/* Optional: Text wrap inside notes */
+.task-note p {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  line-height: 1.4;
+}
