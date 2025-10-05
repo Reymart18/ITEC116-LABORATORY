@@ -13,7 +13,6 @@ function Register({ onRegister, onSwitch }) {
     try {
       const res = await registerUser(email, password);
       if (res.id) {
-        alert("Registration successful!");
         onRegister(res.id);
       } else {
         setError(res.message || "Registration failed");

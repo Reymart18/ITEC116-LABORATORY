@@ -1,16 +1,9 @@
 import React, { useState } from "react";
 import "./Activity1.css"; // custom CSS file
 
-const colors = [
-  "yellow",
-  "pink",
-  "green",
-  "blue",
-  "purple",
-  "orange",
-];
+const colors = ["yellow", "pink", "green", "blue", "purple", "orange"];
 
-function Activity1() {
+function Activity1({ onBack }) {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
   const [editTaskId, setEditTaskId] = useState(null);
@@ -92,6 +85,11 @@ function Activity1() {
           </div>
         ))}
       </div>
+
+      {/* ✅ Back to Menu button only here */}
+      <button className="back-btn" onClick={onBack}>
+        ⬅ Back to Menu
+      </button>
     </div>
   );
 }
