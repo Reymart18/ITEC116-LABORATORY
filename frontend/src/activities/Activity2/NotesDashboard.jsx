@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { getNotes, createNote, updateNote, deleteNote } from "./api";
 import "../Activity2/NotesDashboard.css";
 
@@ -13,22 +13,18 @@ function NotesDashboard({ token }) {
     return () => document.body.classList.remove("dashboard-page");
   }, []);
 
-  const fetchNotes = async () => {
+  const fetchNotes = useCallback(async () => {
     const res = await getNotes(token);
     setNotes(res);
-  };
+  }, [token]);
 
   useEffect(() => {
     fetchNotes();
-  }, []);
+  }, [fetchNotes]);
 
   const handleCreate = async () => {
     if (!title || !content) return;
-
-    const timestamp = new Date().toLocaleString();
-    const contentWithDate = `${content}\n\n[Created: ${timestamp}]`;
-
-    await createNote(token, title, contentWithDate);
+    await createNote(token, title, content);
     setTitle("");
     setContent("");
     fetchNotes();
@@ -36,22 +32,7 @@ function NotesDashboard({ token }) {
 
   const handleUpdate = async () => {
     if (!selectedNote) return;
-
-    const timestamp = new Date().toLocaleString();
-    let updatedContent = content;
-
-    // Replace [Created: ...] or [Updated: ...] with new updated time
-    updatedContent = updatedContent.replace(
-      /\[(Created|Updated): .*?\]/,
-      `[Updated: ${timestamp}]`
-    );
-
-    // If the note somehow doesn't have any date tag, add one
-    if (!/\[(Created|Updated): .*?\]/.test(updatedContent)) {
-      updatedContent += `\n\n[Updated: ${timestamp}]`;
-    }
-
-    await updateNote(token, selectedNote.id, title, updatedContent);
+    await updateNote(token, selectedNote.id, title, content);
     setSelectedNote(null);
     setTitle("");
     setContent("");
@@ -102,9 +83,18 @@ function NotesDashboard({ token }) {
             onClick={() => handleSelectNote(note)}
           >
             <h3>{note.title}</h3>
-            <p>{note.content.substring(0, 150)}{note.content.length > 150 ? "..." : ""}</p>
+            <p>
+              {note.content.substring(0, 150)}
+              {note.content.length > 150 ? "..." : ""}
+            </p>
 
-           
+            {/* 🕒 Show Created/Updated timestamps safely */}
+            <p>
+            {note.updated_at && note.updated_at !== note.created_at
+              ? `Updated: ${new Date(note.updated_at).toLocaleString()}`
+              : `Created: ${new Date(note.created_at).toLocaleString()}`}
+          </p>
+
 
             <button
               onClick={(e) => {
@@ -117,6 +107,7 @@ function NotesDashboard({ token }) {
           </div>
         ))}
       </div>
+
     </div>
   );
 }
