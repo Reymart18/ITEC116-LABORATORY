@@ -1,0 +1,197 @@
+/* Layout */
+.notes-dashboard-layout {
+  display: flex;
+  height: 100vh;
+  background: url("landingbgg.jpg") no-repeat center center fixed;
+  background-size: cover;
+  font-family: "Poppins", "Segoe UI", sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 90px;
+  background: rgba(255, 255, 255, 0.44);
+  padding: 25px 10px;
+  border-right: 2px solid #d4a373;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+
+.sidebar-title {
+  font-size: 1rem;
+  color: #4b2e05;
+  margin-bottom: 20px;
+}
+
+/* Add Button */
+.add-note-btn {
+  background: #b5651d;
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 55px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.add-note-btn:hover {
+  background: #8c4512;
+  transform: scale(1.1);
+}
+
+/* Inline Note Form beside sidebar */
+.note-form-inline {
+  position: fixed;
+  top: 95px;
+  left: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 260px;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: #fffef8;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+  z-index: 15;
+}
+
+.note-form-inline.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.note-form-inline input,
+.note-form-inline textarea {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1.5px solid #d4a373;
+  background: #fffef8;
+  font-size: 0.95rem;
+}
+
+.note-form-inline textarea {
+  resize: none;
+  height: 80px;
+}
+
+.note-form-inline button {
+  background: linear-gradient(135deg, #e6b980, #eacda3);
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  color: #4b2e05;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.note-form-inline button:hover {
+  background: linear-gradient(135deg, #d9a760, #d5b175);
+}
+
+/* Notes Board */
+.notes-board {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 40px;
+  gap: 25px;
+  align-content: flex-start;
+  overflow-y: auto;
+}
+
+/* Sticky Note Cards */
+.note-card {
+  width: 240px;
+  min-height: 180px;
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transform: rotate(-2deg);
+  transition: all 0.3s ease;
+  animation: popIn 0.4s ease;
+  cursor: pointer;
+}
+
+.note-card:nth-child(odd) {
+  transform: rotate(2deg);
+}
+
+.note-card:hover {
+  transform: scale(1.05) rotate(0deg);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.25);
+}
+
+.note-card::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  background: radial-gradient(circle, #b22222 35%, #7a1616 90%);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+}
+
+.note-card h3 {
+  margin-top: 25px;
+  color: #4b2e05;
+  font-weight: 700;
+}
+
+.note-card p {
+  color: #5c4a1a;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.note-time {
+  font-size: 0.75rem;
+  color: #7b6c55;
+  margin-top: 10px;
+}
+
+.note-card button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #d9534f;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  padding: 5px 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.note-card button:hover {
+  background: #c9302c;
+}
+
+/* Animation */
+@keyframes popIn {
+  from {
+    transform: scale(0.8) rotate(-3deg);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
