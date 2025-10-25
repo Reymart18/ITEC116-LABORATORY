@@ -1,6 +1,6 @@
 export const getWeatherByCity = async (city) => {
-  const apiKey = process.env.REACT_APP_OPENWEATHER_API_KEY;
-  const baseUrl = process.env.REACT_APP_OPENWEATHER_API_URL;
+  const apiKey = c1a258741766547deef08f004d695606
+  const baseUrl = https://api.openweathermap.org/data/2.5/weather
 
   // Trim spaces and validate the input
   if (!city || !/^[a-zA-Z\s-]+$/.test(city.trim())) {
