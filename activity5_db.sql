@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 22, 2025 at 06:10 PM
+-- Generation Time: Oct 31, 2025 at 06:30 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -69,7 +69,14 @@ INSERT INTO `comment` (`id`, `content`, `createdAt`, `authorId`, `postId`, `pare
 (104, 'xeeqxqeq', '2025-10-22 21:01:28.074565', 6, 35, 103, NULL),
 (105, 'qexeexexexeqeqqqw', '2025-10-22 21:03:11.989023', 6, 35, NULL, NULL),
 (106, '', '2025-10-22 21:03:33.119359', 6, 35, NULL, 'http://localhost:3001/uploads/file-1761138213114-916783468.png'),
-(107, 'wqxeqe', '2025-10-22 21:03:48.812757', 4, 35, NULL, NULL);
+(107, 'wqxeqe', '2025-10-22 21:03:48.812757', 4, 35, NULL, NULL),
+(108, 'HEHE', '2025-10-31 20:13:13.237150', 9, 28, NULL, 'http://localhost:3001/uploads/file-1761912793230-551144850.jpg'),
+(109, 'HEHE', '2025-10-31 20:31:41.894657', 9, 30, NULL, NULL),
+(110, 'HEHE', '2025-10-31 20:48:28.886421', 9, 32, NULL, NULL),
+(113, 'dadadada', '2025-10-31 21:49:06.037237', 9, 35, NULL, NULL),
+(114, 'test \r\n', '2025-10-31 21:49:21.140281', 9, 35, NULL, NULL),
+(117, 'TEST PO', '2025-11-01 01:24:54.403514', 9, 41, NULL, NULL),
+(118, 'TEST PO', '2025-11-01 01:25:02.753078', 9, 41, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -99,7 +106,8 @@ INSERT INTO `post` (`id`, `title`, `content`, `createdAt`, `authorId`, `mediaUrl
 (32, 'e', 'e', '2025-10-22 20:38:07.261021', 6, 'http://localhost:3001/uploads/file-1761136687257-348951234.png'),
 (33, 'xeqwexqwe', 'xqeqwx', '2025-10-22 20:39:56.009864', 4, NULL),
 (34, 'qxeqewqxe', 'xeqe', '2025-10-22 20:50:05.034767', 4, NULL),
-(35, 'qxeqee', 'xeqwx', '2025-10-22 20:53:19.832555', 4, NULL);
+(35, 'qxeqee', 'xeqwx', '2025-10-22 20:53:19.832555', 4, NULL),
+(41, 'HA', 'HA', '2025-11-01 01:24:46.153244', 9, 'http://localhost:3001/uploads/file-1761931486137-288933050.jpg');
 
 -- --------------------------------------------------------
 
@@ -123,7 +131,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `email`, `password`, `isVerified`, `verificationToken`, `createdAt`, `updatedAt`) VALUES
 (4, 'reymartomega18@gmail.com', '$2b$10$/I1CCV7LKvvuXHVuOF298O5oTzfc8KQYkhTfNZ9u9BOdeqik6p9uO', 1, NULL, '2025-10-22 16:35:08.337275', '2025-10-22 16:35:22.000000'),
-(6, 'ic.reymart.omega@cvsu.edu.ph', '$2b$10$wjhnvoLaZG6NnTLruocNpussyhZetxUA5/cayym0VNxAwvQ67z57e', 1, NULL, '2025-10-22 16:55:13.089008', '2025-10-22 16:55:29.000000');
+(6, 'ic.reymart.omega@cvsu.edu.ph', '$2b$10$wjhnvoLaZG6NnTLruocNpussyhZetxUA5/cayym0VNxAwvQ67z57e', 1, NULL, '2025-10-22 16:55:13.089008', '2025-10-22 16:55:29.000000'),
+(9, 'martinmalapo@gmail.com', '$2b$10$ApWlFBXaDEfM3nV/zDvRn.ssE7Tk/pjth8kUER8qghabow.kEu4fW', 1, NULL, '2025-10-31 20:07:34.476598', '2025-10-31 20:07:46.000000');
 
 --
 -- Indexes for dumped tables
@@ -160,19 +169,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
 
 --
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
