@@ -34,38 +34,46 @@ export default function Comment({ comment, onReply, onEdit, onDelete }) {
   return (
     <div style={{ marginBottom: "15px", paddingLeft: comment.parent ? "20px" : "0" }}>
       <div style={commentBoxStyle}>
-        <strong>{comment.author?.email}</strong>
-        {editMode ? (
-          <>
-            <textarea
-              value={editContent}
-              onChange={e => setEditContent(e.target.value)}
-              style={textareaStyle}
-            />
-            <button onClick={handleEdit} style={btnStyle}>Save</button>
-            <button onClick={() => setEditMode(false)} style={btnStyle}>Cancel</button>
-          </>
-        ) : (
-          <>
-            <p>{comment.content}</p>
-            {comment.mediaUrl && (
-              <div style={{ marginTop: "5px" }}>
-                <img
-                  src={comment.mediaUrl}
-                  alt="Comment Media"
-                  style={{ maxWidth: "100%", borderRadius: "4px" }}
-                />
-              </div>
-            )}
-            {comment.author?.email === currentUserEmail && (
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+          <div style={{ flex: 1, textAlign: "left" }}>
+            <strong style={{ fontSize: "14px", color: "#333", display: "block", textAlign: "left" }}>{comment.author?.email}</strong>
+            {editMode ? (
               <>
-                <button onClick={() => setEditMode(true)} style={btnStyle}>Edit</button>
-                <button onClick={handleDelete} style={btnStyle}>Delete</button>
+                <textarea
+                  value={editContent}
+                  onChange={e => setEditContent(e.target.value)}
+                  style={textareaStyle}
+                />
+                <button onClick={handleEdit} style={btnStyle}>Save</button>
+                <button onClick={() => setEditMode(false)} style={btnStyle}>Cancel</button>
+              </>
+            ) : (
+              <>
+                <p style={{ margin: "5px 0", fontSize: "14px", color: "#555", textAlign: "left" }}>{comment.content}</p>
+                {comment.mediaUrl && (
+                  <div style={{ marginTop: "5px" }}>
+                    <img
+                      src={comment.mediaUrl}
+                      alt="Comment Media"
+                      style={{ maxWidth: "100%", borderRadius: "4px" }}
+                    />
+                  </div>
+                )}
+                {comment.author?.email === currentUserEmail && (
+                  <div style={{ marginTop: "5px" }}>
+                    <button onClick={() => setEditMode(true)} style={btnStyle}>Edit</button>
+                    <button onClick={handleDelete} style={btnStyle}>Delete</button>
+                  </div>
+                )}
               </>
             )}
-            <button onClick={() => setShowReplyBox(!showReplyBox)} style={btnStyle}>Reply</button>
-          </>
-        )}
+          </div>
+          {!editMode && (
+            <button onClick={() => setShowReplyBox(!showReplyBox)} style={replyButtonStyle}>
+              Reply
+            </button>
+          )}
+        </div>
       </div>
 
       {showReplyBox && (
@@ -101,9 +109,11 @@ export default function Comment({ comment, onReply, onEdit, onDelete }) {
 
 // Styles
 const commentBoxStyle = {
-  background: "#fafafa",
-  padding: "10px",
-  borderRadius: "6px"
+  background: "#fff",
+  padding: "12px",
+  borderRadius: "8px",
+  border: "1px solid #e0e0e0",
+  marginBottom: "8px",
 };
 
 const replyBoxStyle = {
@@ -116,15 +126,27 @@ const textareaStyle = {
   padding: "8px",
   borderRadius: "6px",
   border: "1px solid #ccc",
-  marginBottom: "5px"
+  marginBottom: "5px",
+  boxSizing: "border-box",
 };
 
 const btnStyle = {
-  marginLeft: "5px",
+  marginRight: "8px",
   background: "none",
   border: "none",
   color: "#FF6347",
-  cursor: "pointer"
+  cursor: "pointer",
+  fontSize: "13px",
+};
+
+const replyButtonStyle = {
+  background: "none",
+  border: "none",
+  color: "#667eea",
+  cursor: "pointer",
+  fontSize: "13px",
+  fontWeight: "500",
+  padding: "4px 8px",
 };
 
 const replyBtnStyle = {

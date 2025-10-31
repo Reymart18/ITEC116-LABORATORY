@@ -15,7 +15,7 @@ export default function Header({ setCurrentPage }) {
           zIndex: 100,
         }}
       >
-        <h1 style={{ color: "#FF6347" }}>My Blog</h1>
+        <h1 style={{ color: "#667eea" }}>MY BLOG</h1>
         <div>
           <button className="navBtn" onClick={() => setCurrentPage("home")}>Home</button>
           {!token ? (
@@ -42,14 +42,14 @@ export default function Header({ setCurrentPage }) {
             padding: 8px 15px;
             border: none;
             border-radius: 6px;
-            background: #FF6347;
+            background: #667eea;
             color: #fff;
             cursor: pointer;
             font-weight: bold;
             transition: 0.3s;
           }
           .navBtn:hover {
-            background: #ff8566;
+            background: #5568d3;
           }
         `}</style>
       </header>

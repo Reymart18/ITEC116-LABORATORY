@@ -35,7 +35,7 @@ export default function Login({ onLogin }) {
   return (
     <div style={backgroundStyle}>
       <div style={formContainer}>
-        <h2 style={title}>Welcome Back</h2>
+        <h2 style={title}>WELCOME BACK!</h2>
         <form onSubmit={handleLogin}>
           <input
             style={inputStyle}
@@ -69,37 +69,39 @@ export default function Login({ onLogin }) {
 }
 
 const backgroundStyle = {
-  height: "100vh",
+  minHeight: "100vh",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  background: "linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)",
+  background: "#f3f3f3ff",
 };
 
 const formContainer = {
-  width: "380px",
-  padding: "30px",
-  borderRadius: "16px",
-  background: "#ffffffcc",
-  backdropFilter: "blur(10px)",
-  boxShadow: "0 8px 25px rgba(0,0,0,0.15)",
+  width: "360px",
+  padding: "48px 36px",
+  borderRadius: "12px",
+  background: "#ffffff",
+  boxShadow: "0 6px 18px rgba(0,0,0,0.06)",
   textAlign: "center",
 };
 
 const title = {
-  color: "#007BFF",
-  fontSize: "24px",
-  marginBottom: "20px",
-  fontWeight: "700",
+  color: "#000",
+  fontSize: "20px",
+  marginBottom: "28px",
+  fontWeight: "800",
+  letterSpacing: "0.6px",
 };
 
 const inputStyle = {
   width: "100%",
-  padding: "12px",
-  marginBottom: "15px",
+  padding: "12px 18px",
+  marginBottom: "18px",
   borderRadius: "8px",
-  border: "1px solid #ccc",
-  fontSize: "16px",
+  border: "1px solid #cfcfcf",
+  fontSize: "14px",
+  boxSizing: "border-box",
+  outline: "none",
 };
 
 const submitBtn = {
@@ -107,12 +109,13 @@ const submitBtn = {
   padding: "12px",
   border: "none",
   borderRadius: "8px",
-  background: "linear-gradient(90deg, #007BFF, #00BFFF)",
+  background: "linear-gradient(180deg, #5b8fd6 0%, #4b79d8 100%)",
   color: "#fff",
-  fontWeight: "bold",
-  fontSize: "16px",
+  fontWeight: "600",
+  fontSize: "14px",
   cursor: "pointer",
-  transition: "0.3s ease",
+  transition: "0.2s ease",
+  boxSizing: "border-box",
 };
 
 const footerText = {

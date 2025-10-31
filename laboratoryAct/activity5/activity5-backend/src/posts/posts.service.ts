@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Post } from './post.entity';
@@ -30,5 +30,44 @@ export class PostsService {
     });
     if (!post) throw new NotFoundException('Post not found');
     return post;
+  }
+
+  async updatePost(id: number, userId: number, data: { title?: string; content?: string; mediaUrl?: string }) {
+    const post = await this.postsRepository.findOne({
+      where: { id },
+      relations: ['author'],
+    });
+
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+
+    if (post.author.id !== userId) {
+      throw new UnauthorizedException('You can only update your own posts');
+    }
+
+    if (data.title !== undefined) post.title = data.title;
+    if (data.content !== undefined) post.content = data.content;
+    if (data.mediaUrl !== undefined) post.mediaUrl = data.mediaUrl;
+
+    return this.postsRepository.save(post);
+  }
+
+  async deletePost(id: number, userId: number) {
+    const post = await this.postsRepository.findOne({
+      where: { id },
+      relations: ['author'],
+    });
+
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+
+    if (post.author.id !== userId) {
+      throw new UnauthorizedException('You can only delete your own posts');
+    }
+
+    await this.postsRepository.remove(post);
+    return { message: 'Post deleted successfully' };
   }
 }

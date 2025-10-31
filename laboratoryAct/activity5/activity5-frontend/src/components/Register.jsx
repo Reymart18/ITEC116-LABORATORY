@@ -34,7 +34,7 @@ export default function Register({ onRegister }) {
   return (
     <div style={backgroundStyle}>
       <div style={formContainer}>
-        <h2 style={title}>Create Your Account</h2>
+  <h2 style={title}>CREATE YOUR ACCOUNT</h2>
         <form onSubmit={handleRegister}>
           <input
             style={inputStyle}
@@ -68,37 +68,39 @@ export default function Register({ onRegister }) {
 }
 
 const backgroundStyle = {
-  height: "100vh",
+  minHeight: "100vh",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  background: "linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%)",
+  background: "#f3f3f3ff",
 };
 
 const formContainer = {
-  width: "380px",
-  padding: "30px",
-  borderRadius: "16px",
-  background: "#ffffffcc",
-  backdropFilter: "blur(10px)",
-  boxShadow: "0 8px 25px rgba(0,0,0,0.15)",
+  width: "360px",
+  padding: "48px 36px",
+  borderRadius: "12px",
+  background: "#ffffff",
+  boxShadow: "0 6px 18px rgba(0,0,0,0.06)",
   textAlign: "center",
 };
 
 const title = {
-  color: "#ff6347",
-  fontSize: "24px",
-  marginBottom: "20px",
-  fontWeight: "700",
+  color: "#000",
+  fontSize: "20px",
+  marginBottom: "28px",
+  fontWeight: "800",
+  letterSpacing: "0.6px",
 };
 
 const inputStyle = {
   width: "100%",
-  padding: "12px",
-  marginBottom: "15px",
+  padding: "12px 18px",
+  marginBottom: "18px",
   borderRadius: "8px",
-  border: "1px solid #ccc",
-  fontSize: "16px",
+  border: "1px solid #cfcfcf",
+  fontSize: "14px",
+  boxSizing: "border-box",
+  outline: "none",
 };
 
 const submitBtn = {
@@ -106,12 +108,13 @@ const submitBtn = {
   padding: "12px",
   border: "none",
   borderRadius: "8px",
-  background: "linear-gradient(90deg, #ff6347, #ff7e5f)",
+  background: "linear-gradient(180deg, #5b8fd6 0%, #4b79d8 100%)",
   color: "#fff",
-  fontWeight: "bold",
-  fontSize: "16px",
+  fontWeight: "600",
+  fontSize: "14px",
   cursor: "pointer",
-  transition: "0.3s ease",
+  transition: "0.2s ease",
+  boxSizing: "border-box",
 };
 
 const footerText = {
