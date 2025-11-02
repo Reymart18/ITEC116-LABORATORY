@@ -20,6 +20,9 @@ export class User {
   @Column()
   password: string;
 
+  @Column()
+  nickname: string;   // ✅ ADD THIS HERE
+
   @Column({ type: 'text', nullable: true })
   verificationToken: string | null;
 
@@ -38,3 +41,4 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date;
 }
+

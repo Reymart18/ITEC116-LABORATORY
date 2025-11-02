@@ -1,14 +1,28 @@
 import React, { useState } from "react";
+import Swal from "sweetalert2";
 
 export default function Register({ onRegister }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [nickname, setNickname] = useState("");
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    if (!email || !password) {
-      alert("Enter email and password");
+    // 🔹 Check required fields
+    if (!email || !password || !nickname) {
+      Swal.fire("Missing Fields", "Enter all required fields", "warning");
+      return;
+    }
+
+    // 🔹 Password validation (8 chars, 1 uppercase, 1 lowercase, 1 number)
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+    if (!passwordRegex.test(password)) {
+      Swal.fire(
+        "Invalid Password",
+        "Password must be at least 8 characters long and include at least 1 uppercase letter, 1 lowercase letter, and 1 number.",
+        "error"
+      );
       return;
     }
 
@@ -16,26 +30,36 @@ export default function Register({ onRegister }) {
       const res = await fetch("http://localhost:3001/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, nickname }),
       });
 
       const data = await res.json();
-      alert(data.message);
 
       if (res.ok) {
+        Swal.fire("Success", data.message, "success");
         onRegister();
+      } else {
+        Swal.fire("Error", data.message || "Registration failed", "error");
       }
     } catch (error) {
       console.error("Registration error:", error);
-      alert("Registration failed. Check console for details.");
+      Swal.fire("Error", "Registration failed. Check console for details.", "error");
     }
   };
 
   return (
     <div style={backgroundStyle}>
       <div style={formContainer}>
-  <h2 style={title}>CREATE YOUR ACCOUNT</h2>
+        <h2 style={title}>CREATE YOUR ACCOUNT</h2>
         <form onSubmit={handleRegister}>
+          <input
+            style={inputStyle}
+            type="text"
+            placeholder="Enter your nickname"
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+            required
+          />
           <input
             style={inputStyle}
             type="email"
@@ -67,6 +91,7 @@ export default function Register({ onRegister }) {
   );
 }
 
+// ✅ Styles
 const backgroundStyle = {
   minHeight: "100vh",
   display: "flex",

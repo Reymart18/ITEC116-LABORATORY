@@ -16,7 +16,7 @@ export class AuthService {
   ) {}
 
   // 🔹 Register a new user
-  async register(email: string, password: string) {
+  async register(email: string, password: string, nickname: string) {
     const existing = await this.userRepository.findOne({ where: { email } });
     if (existing) {
       return { message: 'Email already registered' };
@@ -28,6 +28,7 @@ export class AuthService {
     const user = this.userRepository.create({
       email,
       password: hashed,
+      nickname, // ✅ Added nickname here
       verificationToken,
       isVerified: false,
     });
@@ -94,6 +95,7 @@ export class AuthService {
     const payload = { sub: user.id, email: user.email };
     const token = this.jwtService.sign(payload);
 
-    return { message: 'Login successful!', token };
+    // ✅ Include nickname in response for frontend display
+    return { message: 'Login successful!', token, nickname: user.nickname };
   }
 }

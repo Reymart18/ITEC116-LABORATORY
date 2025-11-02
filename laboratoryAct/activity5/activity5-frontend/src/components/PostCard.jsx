@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 import Comment from "./Comment";
 
 export default function PostCard({ post, onCommentAdded, onPostUpdated, onPostDeleted }) {
@@ -37,10 +38,11 @@ export default function PostCard({ post, onCommentAdded, onPostUpdated, onPostDe
   };
 
   const handleAddComment = async () => {
-    if (!newComment && !file) return alert("Enter a comment or select a file");
+    if (!newComment && !file)
+      return Swal.fire("Missing Data", "Enter a comment or select a file", "warning");
 
     const token = localStorage.getItem("token");
-    if (!token) return alert("Please log in to comment");
+    if (!token) return Swal.fire("Unauthorized", "Please log in to comment", "error");
 
     const formData = new FormData();
     formData.append("content", newComment);
@@ -62,7 +64,7 @@ export default function PostCard({ post, onCommentAdded, onPostUpdated, onPostDe
       onCommentAdded(post.id, savedComment);
     } catch (err) {
       console.error(err);
-      alert("Error posting comment");
+      Swal.fire("Error", "Error posting comment", "error");
     }
   };
 
@@ -99,10 +101,10 @@ export default function PostCard({ post, onCommentAdded, onPostUpdated, onPostDe
   };
 
   const handleEditPost = async () => {
-    if (!editTitle.trim()) return alert("Title is required");
+    if (!editTitle.trim()) return Swal.fire("Missing Title", "Title is required", "warning");
 
     const token = localStorage.getItem("token");
-    if (!token) return alert("Please log in");
+    if (!token) return Swal.fire("Unauthorized", "Please log in", "error");
 
     const formData = new FormData();
     formData.append("title", editTitle);
@@ -122,18 +124,28 @@ export default function PostCard({ post, onCommentAdded, onPostUpdated, onPostDe
       setIsEditing(false);
       setEditFile(null);
       if (onPostUpdated) onPostUpdated(updatedPost);
-      alert("Post updated successfully!");
+      Swal.fire("Updated", "Post updated successfully!", "success");
     } catch (err) {
       console.error(err);
-      alert("Error updating post");
+      Swal.fire("Error", "Error updating post", "error");
     }
   };
 
   const handleDeletePost = async () => {
-    if (!window.confirm("Are you sure you want to delete this post?")) return;
+    const result = await Swal.fire({
+      title: "Delete Post?",
+      text: "Are you sure you want to delete this post?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (!result.isConfirmed) return;
 
     const token = localStorage.getItem("token");
-    if (!token) return alert("Please log in");
+    if (!token) return Swal.fire("Unauthorized", "Please log in", "error");
 
     try {
       const res = await fetch(`http://localhost:3001/posts/${post.id}`, {
@@ -144,10 +156,10 @@ export default function PostCard({ post, onCommentAdded, onPostUpdated, onPostDe
       if (!res.ok) throw new Error("Failed to delete post");
       
       if (onPostDeleted) onPostDeleted(post.id);
-      alert("Post deleted successfully!");
+      Swal.fire("Deleted!", "Post deleted successfully!", "success");
     } catch (err) {
       console.error(err);
-      alert("Error deleting post");
+      Swal.fire("Error", "Error deleting post", "error");
     }
   };
 
@@ -201,7 +213,7 @@ export default function PostCard({ post, onCommentAdded, onPostUpdated, onPostDe
             textAlign: "left",
             fontWeight: "600"
           }}>
-            {post.author?.email || "Anonymous"}
+            {post.author?.nickname || post.author?.email || "Anonymous"}
           </div>
           <div style={{ 
             color: "#2d3748", 

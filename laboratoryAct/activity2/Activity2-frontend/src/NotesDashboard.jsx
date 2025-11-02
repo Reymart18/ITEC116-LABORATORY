@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
+import Swal from "sweetalert2";
 import { getNotes, createNote, updateNote, deleteNote } from "./api";
+import Sidebar from "./components/Sidebar";
+import NoteForm from "./components/NoteForm";
+import NoteCard from "./components/NoteCard";
 import "./NotesDashboard.css";
 
-function NotesDashboard({ token }) {
+function NotesDashboard({ token, onLogout }) {
   const [notes, setNotes] = useState([]);
   const [selectedNote, setSelectedNote] = useState(null);
   const [title, setTitle] = useState("");
@@ -25,12 +29,16 @@ function NotesDashboard({ token }) {
   }, [fetchNotes]);
 
   const handleCreate = async () => {
-    if (!title || !content) return;
+    if (!title || !content) {
+      Swal.fire("Missing Fields", "Please enter title and content", "warning");
+      return;
+    }
     await createNote(token, title, content);
     setTitle("");
     setContent("");
     setShowForm(false);
     fetchNotes();
+    Swal.fire("Created!", "Note has been added successfully", "success");
   };
 
   const handleUpdate = async () => {
@@ -42,9 +50,22 @@ function NotesDashboard({ token }) {
     setShowForm(false);
     setIsEditing(false);
     fetchNotes();
+    Swal.fire("Updated!", "Note has been updated", "success");
   };
 
   const handleDelete = async (noteId) => {
+    const result = await Swal.fire({
+      title: "Delete this note?",
+      text: "You cannot undo this action.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (!result.isConfirmed) return;
+
     await deleteNote(token, noteId);
     if (selectedNote?.id === noteId) {
       setSelectedNote(null);
@@ -52,6 +73,7 @@ function NotesDashboard({ token }) {
       setIsEditing(false);
     }
     fetchNotes();
+    Swal.fire("Deleted!", "Note has been deleted", "success");
   };
 
   const handleSelectNote = (note) => {
@@ -59,7 +81,7 @@ function NotesDashboard({ token }) {
     setTitle(note.title);
     setContent(note.content);
     setIsEditing(true);
-    setShowForm(true); // Show the form beside sidebar immediately
+    setShowForm(true);
   };
 
   const handleAddClick = () => {
@@ -70,67 +92,46 @@ function NotesDashboard({ token }) {
     setIsEditing(false);
   };
 
+  const handleLogout = async () => {
+    const result = await Swal.fire({
+      title: "Log out?",
+      text: "Are you sure you want to log out?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#aaa",
+      confirmButtonText: "Yes, log out",
+    });
+
+    if (!result.isConfirmed) return;
+
+    localStorage.removeItem("token");
+    if (onLogout) onLogout();
+  };
+
   return (
     <div className="notes-dashboard-layout">
-      {/* Sidebar */}
-      <div className="sidebar">
-        <h2 className="sidebar-title">Notes</h2>
-        <div className="add-note-btn" onClick={handleAddClick}>
-          +
-        </div>
-      </div>
-
-      {/* Inline Form (for both Add & Edit) */}
+      <Sidebar onAddClick={handleAddClick} onLogout={handleLogout} />
       {showForm && (
-        <div className="note-form-inline show">
-          <input
-            placeholder="Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <textarea
-            placeholder="Content"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-          ></textarea>
-          {isEditing ? (
-            <button onClick={handleUpdate}>Update</button>
-          ) : (
-            <button onClick={handleCreate}>Add</button>
-          )}
-        </div>
+        <NoteForm
+          title={title}
+          content={content}
+          isEditing={isEditing}
+          onTitleChange={setTitle}
+          onContentChange={setContent}
+          onCreate={handleCreate}
+          onUpdate={handleUpdate}
+        />
       )}
-
-      {/* Notes Board */}
       <div className="notes-board">
         {notes.map((note) => (
-          <div
+          <NoteCard
             key={note.id}
-            className={`note-card ${
-              selectedNote?.id === note.id ? "selected" : ""
-            }`}
-            style={{ background: note.color || "#fff8c4" }}
-            onClick={() => handleSelectNote(note)}
-          >
-            <h3>{note.title}</h3>
-            <p>
-              {note.content.substring(0, 150)}
-              {note.content.length > 150 ? "..." : ""}
-            </p>
-            <p className="note-time">
-              {note.updated_at && note.updated_at !== note.created_at
-                ? `Updated: ${new Date(note.updated_at).toLocaleString()}`
-                : `Created: ${new Date(note.created_at).toLocaleString()}`}
-            </p>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                handleDelete(note.id);
-              }}
-            >
-              ✖
-            </button>
-          </div>
+            note={note}
+            selectedNote={selectedNote}
+            onSelect={handleSelectNote}
+            onDelete={handleDelete}
+          />
         ))}
       </div>
     </div>
@@ -138,4 +139,3 @@ function NotesDashboard({ token }) {
 }
 
 export default NotesDashboard;
-

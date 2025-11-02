@@ -9,8 +9,9 @@ export class AuthController {
 
   @Post('register')
   register(@Body() body: RegisterDto) {
-    return this.authService.register(body.email, body.password);
-  }
+    console.log(body); // Just to confirm at runtime
+    return this.authService.register(body.email, body.password, body.nickname);
+  }  
 
   @Get('verify')
   verify(@Query('token') token: string) {

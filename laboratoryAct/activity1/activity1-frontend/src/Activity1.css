@@ -1,20 +1,47 @@
-/* Container styles */
-.container {
-  max-width: 900px;
-  margin: 50px auto;
-  text-align: center;
+/* Background with sticky note pattern */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f9f7f1;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(255, 247, 154, 0.35) 20px, transparent 40px),
+    radial-gradient(circle at 80% 40%, rgba(255, 182, 193, 0.3) 20px, transparent 40px),
+    radial-gradient(circle at 40% 70%, rgba(173, 216, 230, 0.3) 20px, transparent 40px),
+    radial-gradient(circle at 60% 90%, rgba(255, 214, 153, 0.35) 20px, transparent 40px),
+    radial-gradient(circle at 20% 80%, rgba(216, 183, 255, 0.3) 20px, transparent 40px);
+  background-size: 250px 250px;
+  background-attachment: fixed;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Main container */
+.container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 50px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Title */
 h1 {
   font-size: 2.5rem;
   margin-bottom: 30px;
-  color: #333;
+  color: #2e2e2e;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
 }
 
 /* Input area */
 .input-container {
   margin-bottom: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
 }
 
 .input-container input {
@@ -22,9 +49,9 @@ h1 {
   width: 280px;
   border-radius: 8px;
   border: 1px solid #ccc;
-  margin-right: 10px;
   box-shadow: inset 2px 2px 5px rgba(0,0,0,0.1);
   font-size: 1rem;
+  outline: none;
 }
 
 .input-container button {
@@ -50,6 +77,8 @@ h1 {
   flex-wrap: wrap;
   justify-content: center;
   gap: 25px;
+  width: 100%;
+  max-width: 1200px;
 }
 
 /* Task note */
@@ -58,24 +87,22 @@ h1 {
   min-height: 140px;
   padding: 18px;
   border-radius: 12px;
-  box-shadow: 4px 6px 15px rgba(0,0,0,0.3);
-  position: relative;
+  box-shadow: 3px 5px 15px rgba(0,0,0,0.25);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  font-weight: 500;
   transition: transform 0.2s, box-shadow 0.2s;
   cursor: grab;
-  font-weight: 500;
-  perspective: 1000px;
+  background: #fff;
 }
 
-/* Hover effect for 3D pop */
 .task-note:hover {
-  transform: scale(1.05) rotateZ(0deg) rotateX(3deg);
+  transform: scale(1.05);
   box-shadow: 6px 10px 20px rgba(0,0,0,0.35);
 }
 
-/* Colors */
+/* Sticky note colors */
 .task-note.yellow { background-color: #fff79a; }
 .task-note.pink { background-color: #ffb6c1; }
 .task-note.green { background-color: #a8f0a0; }
@@ -133,28 +160,9 @@ h1 {
   text-decoration: underline;
 }
 
-/* Optional: Text wrap inside notes */
+/* Task text */
 .task-note p {
   word-wrap: break-word;
   white-space: pre-wrap;
   line-height: 1.4;
 }
-
-.back-btn {
-  margin-top: 30px;
-  padding: 10px 25px;
-  border: none;
-  background: linear-gradient(135deg, #4b6cb7, #182848);
-  color: #fff;
-  font-weight: bold;
-  border-radius: 10px;
-  cursor: pointer;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-}
-
-.back-btn:hover {
-  transform: translateY(-3px);
-  background: linear-gradient(135deg, #3551a1, #10172b);
-}
-

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Swal from "sweetalert2";
 
 export default function Login({ onLogin }) {
   const [email, setEmail] = useState("");
@@ -8,7 +9,7 @@ export default function Login({ onLogin }) {
     e.preventDefault();
 
     if (!email || !password) {
-      alert("Enter email and password");
+      Swal.fire("Missing Fields", "Enter email and password", "warning");
       return;
     }
 
@@ -20,22 +21,23 @@ export default function Login({ onLogin }) {
       });
 
       const data = await res.json();
-      alert(data.message);
 
       if (res.ok && data.token) {
         localStorage.setItem("token", data.token);
         onLogin();
+      } else {
+        Swal.fire("Error", data.message || "Invalid login credentials", "error");
       }
     } catch (error) {
       console.error("Login error:", error);
-      alert("Login failed. Check console for details.");
+      Swal.fire("Error", "Login failed. Check console for details.", "error");
     }
   };
 
   return (
     <div style={backgroundStyle}>
       <div style={formContainer}>
-        <h2 style={title}>WELCOME BACK!</h2>
+        <h2 style={title}>WELCOME</h2>
         <form onSubmit={handleLogin}>
           <input
             style={inputStyle}

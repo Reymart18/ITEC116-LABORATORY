@@ -36,7 +36,7 @@ export default function Comment({ comment, onReply, onEdit, onDelete }) {
       <div style={commentBoxStyle}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
           <div style={{ flex: 1, textAlign: "left" }}>
-            <strong style={{ fontSize: "14px", color: "#333", display: "block", textAlign: "left" }}>{comment.author?.email}</strong>
+            <strong style={{ fontSize: "14px", color: "#333", display: "block", textAlign: "left" }}>{comment.author?.nickname || comment.author?.email}</strong>
             {editMode ? (
               <>
                 <textarea

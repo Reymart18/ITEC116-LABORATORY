@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Login from "./Login";
 import Register from "./Register";
 import NotesDashboard from "./NotesDashboard";
@@ -9,8 +9,26 @@ function Activity2({ onBack }) {
   const [showRegister, setShowRegister] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
 
-  const handleLogin = (token) => setUser(token);
-  const handleLogout = () => setUser(null);
+  // ✅ Load saved token from localStorage when app starts
+  useEffect(() => {
+    const savedToken = localStorage.getItem("token");
+    if (savedToken) {
+      setUser(savedToken);
+    }
+  }, []);
+
+  // ✅ Save token to localStorage when user logs in
+  const handleLogin = (token) => {
+    localStorage.setItem("token", token);
+    setUser(token);
+  };
+
+  // ✅ Remove token when logging out
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setUser(null);
+  };
+
   const handleRegister = () => {
     setShowRegister(false);
     setSuccessMessage("Registration successful! You can now log in.");

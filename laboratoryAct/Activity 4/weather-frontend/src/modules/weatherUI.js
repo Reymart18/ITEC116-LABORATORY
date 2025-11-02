@@ -17,7 +17,7 @@ function WeatherUI() {
     fetchWeather();
   };
 
-  // 🧠 Function to choose background image dynamically
+  // Function to choose background image dynamically
   const getBackgroundImage = () => {
     if (!weather) return defaultBg;
 

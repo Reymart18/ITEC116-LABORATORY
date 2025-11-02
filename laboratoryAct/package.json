@@ -1,0 +1,18 @@
+{
+  "name": "laboratoryAct",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "sweetalert2": "^11.26.3"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  },
+  "scripts": {
+    "activity1": "npm start --prefix activity1/activity1-frontend",
+    "activity2": "concurrently -n backend,frontend -c blue,green \"npm start --prefix activity2/activity2-backend\" \"npm start --prefix activity2/activity2-frontend\"",
+    "activity3": "concurrently \"npm start --prefix activity3/frontend\" \"npm start --prefix activity3/backend\"",
+    "activity4": "concurrently \"npm start --prefix \\\"Activity 4/weather-frontend\\\"\"",
+    "activity5": "concurrently \"npm start --prefix activity5/activity5-frontend\" \"npm start --prefix activity5/activity5-backend\""
+  }
+}

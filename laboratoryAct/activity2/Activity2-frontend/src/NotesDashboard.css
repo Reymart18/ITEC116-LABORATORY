@@ -2,7 +2,7 @@
 .notes-dashboard-layout {
   display: flex;
   height: 100vh;
-  background: url("landingbgg.jpg") no-repeat center center fixed;
+  background: url("./images/landingbgg.jpg") no-repeat center center fixed;
   background-size: cover;
   font-family: "Poppins", "Segoe UI", sans-serif;
   overflow: hidden;
@@ -195,3 +195,20 @@
     opacity: 1;
   }
 }
+
+.logout-btn {
+  margin-top: auto;
+  background: #ff4b4b;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.logout-btn:hover {
+  background: #e03e3e;
+}
+
