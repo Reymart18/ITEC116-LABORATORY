@@ -10,14 +10,14 @@ export const useWeather = () => {
   const fetchWeather = async () => {
     const trimmedCity = city.trim();
 
-    // 1️⃣ Empty input check
+    // Empty input check
     if (!trimmedCity) {
       setError("Please enter a city name.");
       setWeather(null);
       return;
     }
 
-    // 2️⃣ Letters and spaces only
+    // Letters and spaces only
     const isValidCity = /^[A-Za-z\s]+$/.test(trimmedCity);
     if (!isValidCity) {
       setError("Please enter a valid city name (letters only).");
@@ -29,10 +29,10 @@ export const useWeather = () => {
     setError("");
 
     try {
-      // 3️⃣ Fetch from API
+      // Fetch from API
       const data = await getWeatherByCity(trimmedCity);
 
-      // 4️⃣ Validate actual API result
+      // Validate actual API result
       if (!data || !data.city || !data.temperature) {
         setError("City not found. Please try another name.");
         setWeather(null);
