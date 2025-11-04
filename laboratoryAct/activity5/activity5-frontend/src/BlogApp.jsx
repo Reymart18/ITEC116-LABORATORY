@@ -14,7 +14,7 @@ export default function BlogApp() {
     <div style={{ fontFamily: "'Segoe UI', sans-serif", background: "#f4f4f9", minHeight: "100vh" }}>
       <Header setCurrentPage={setCurrentPage} />
       {currentPage === "home" && <Home />}
-      {currentPage === "login" && <Login onLogin={handleLogin} />}
+      {currentPage === "login" && <Login onLogin={handleLogin} setCurrentPage={setCurrentPage} />}
       {currentPage === "register" && <Register onRegister={handleRegister} />}
     </div>
   );

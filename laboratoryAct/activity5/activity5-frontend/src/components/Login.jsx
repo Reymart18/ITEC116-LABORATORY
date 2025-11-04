@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 
-export default function Login({ onLogin }) {
+export default function Login({ onLogin, setCurrentPage }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -24,6 +24,10 @@ export default function Login({ onLogin }) {
 
       if (res.ok && data.token) {
         localStorage.setItem("token", data.token);
+        localStorage.setItem("userEmail", email);
+        if (data.nickname) {
+          localStorage.setItem("userNickname", data.nickname);
+        }
         onLogin();
       } else {
         Swal.fire("Error", data.message || "Invalid login credentials", "error");
@@ -60,8 +64,8 @@ export default function Login({ onLogin }) {
           </button>
         </form>
         <p style={footerText}>
-          Don’t have an account?{" "}
-          <span style={linkText} onClick={onLogin}>
+          Don't have an account?{" "}
+          <span style={linkText} onClick={() => setCurrentPage("register")}>
             Register here
           </span>
         </p>

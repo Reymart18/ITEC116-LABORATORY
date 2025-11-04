@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000/api";
+const API_URL = "http://localhost:3003/api";
 // Expose API origin so UI can build absolute URLs for assets like /uploads/...
 export const API_ORIGIN = API_URL.replace(/\/?api\/?$/, "");
 

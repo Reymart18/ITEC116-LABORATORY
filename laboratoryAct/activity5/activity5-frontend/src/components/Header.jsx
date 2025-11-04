@@ -2,6 +2,8 @@ import Swal from "sweetalert2";
 
 export default function Header({ setCurrentPage }) {
   const token = localStorage.getItem("token");
+  const userEmail = localStorage.getItem("userEmail");
+  const userNickname = localStorage.getItem("userNickname");
 
   const handleLogout = () => {
     Swal.fire({
@@ -16,6 +18,8 @@ export default function Header({ setCurrentPage }) {
     }).then((result) => {
       if (result.isConfirmed) {
         localStorage.removeItem("token");
+        localStorage.removeItem("userEmail");
+        localStorage.removeItem("userNickname");
         Swal.fire({
           icon: "success",
           title: "Logged out",
@@ -42,7 +46,16 @@ export default function Header({ setCurrentPage }) {
         zIndex: 100,
       }}
     >
-      <h1 style={{ color: "#667eea" }}>MY BLOG</h1>
+      <h1 style={{ color: "#667eea" }}>
+        {token && userEmail ? (
+          <>
+            <span style={{ color: "#444546ff" }}>{userEmail}</span>
+            {userNickname && <span style={{ color: "#89898bff" }}> ({userNickname})</span>}
+          </>
+        ) : (
+          'MY BLOG'
+        )}
+      </h1>
       <div>
         <button className="navBtn" onClick={() => setCurrentPage("home")}>
           Home
